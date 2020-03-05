@@ -6,8 +6,9 @@
 
  The following is help site for those model, in partilcular LSTM.
 
- 1. tensorflow_RNN_test.py - This shows process of RNN, LSTM and GRU with raw coding and tensorflow api
- 
+ 1. tensorflow_RNN_test.py - This shows the process of RNN, LSTM and GRU with raw coding and tensorflow api
+   
+     - the structure of RNN, LSTM, GRU are implemented with numpy and tensorflow api
 
 
 
