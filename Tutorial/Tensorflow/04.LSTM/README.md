@@ -6,6 +6,11 @@
 
  The following is help site for those model, in partilcular LSTM.
 
+ 1. tensorflow_RNN_test.py - This shows process of RNN, LSTM and GRU with raw coding and tensorflow api
+ 
+
+
+
 # Reference 
 
  - [colah's blog](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
