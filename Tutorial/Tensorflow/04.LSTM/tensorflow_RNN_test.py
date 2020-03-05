@@ -8,7 +8,7 @@ import numpy as np
 def test_RNN_layer1():
     forward_rnn_layers = [tf.nn.rnn_cell.BasicRNNCell(size, activation=tf.keras.activations.linear, dtype=tf.float32) for size in [2]]#,2]]
     #backward_rnn_layers = [tf.nn.rnn_cell.BasicRNNCell(size, activation=tf.keras.activations.linear, dtype=tf.float32) for size in [2,2]]
-
+ 
     forward_multi_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(forward_rnn_layers)
     #backward_multi_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(backward_rnn_layers)
 
@@ -458,7 +458,6 @@ def test_LSTM_layer2():
     forget_bias=1.0   
     print(forget_bias)
 
-    ## GRU setting
     print("\n=== x ===\n{}".format(sess.run(x)))
 
     x1 = np.array([1.,2.], dtype=np.float32)
@@ -634,7 +633,7 @@ def test_LSTM_layer2():
 
 
 def test_GRU_layer1():
-    forward_rnn_layers = [tf.nn.rnn_cell.GRUCell(size, activation=tf.keras.activations.linear, dtype=tf.float32) for size in [2,2]]#,2]]
+    forward_rnn_layers = [tf.nn.rnn_cell.GRUCell(size, activation=tf.keras.activations.linear, dtype=tf.float32 ) for size in [2,2]]#,2]]
     #backward_rnn_layers = [tf.nn.rnn_cell.BasicRNNCell(size, activation=tf.keras.activations.linear, dtype=tf.float32) for size in [2,2]]
 
     forward_multi_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(forward_rnn_layers)
@@ -648,6 +647,12 @@ def test_GRU_layer1():
                                                           inputs=x,
                                                           sequence_length=[2],
                                                           dtype=tf.float32)
+
+
+    config = forward_rnn_layers[0].get_config()
+    config['trainable'] = False
+
+    config1 = forward_rnn_layers[0].get_config()
 
     init_op = tf.global_variables_initializer()
 
@@ -808,6 +813,10 @@ def test_GRU_layer1():
 
 
 
+    print(config)
+    print(config1)
+  #  print(sess.run(config))
+    sess.close()
 
 
 
