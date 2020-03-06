@@ -233,7 +233,8 @@ def test_RNN_layer2():
 
 def test_LSTM_layer1():
     forward_rnn_layers = [tf.nn.rnn_cell.BasicLSTMCell(size, activation=tf.keras.activations.linear, state_is_tuple=True, dtype=tf.float32) for size in [2]]#,2]]
-    #backward_rnn_layers = [tf.nn.rnn_cell.BasicRNNCell(size, activation=tf.keras.activations.linear, dtype=tf.float32) for size in [2,2]]
+    #forward_multi_rnn_cell = tf.nn.rnn_cell.BasicLSTMCell(2, activation=tf.keras.activations.linear, state_is_tuple=True, dtype=tf.float32)
+    #backward_rnn_layers = [tf.nn.rnn_cell.BasicRNNCell(size, activation=tf.keras.activations.linear, dtype=tf.float32) for size in [2]]#,2]]
 
     forward_multi_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(forward_rnn_layers)
     #backward_multi_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(backward_rnn_layers)
@@ -242,10 +243,17 @@ def test_LSTM_layer1():
 
     uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_multi_rnn_cell, sequence_length=[2], inputs=x, dtype=tf.float32)
     bi_output, bi_state = tf.nn.bidirectional_dynamic_rnn(cell_fw = forward_multi_rnn_cell,
-                                                          cell_bw = forward_multi_rnn_cell,#backward_multi_rnn_cell, 
+                                                          cell_bw = forward_multi_rnn_cell, #backward_multi_rnn_cell, 
                                                           inputs=x,
                                                           sequence_length=[2],
                                                           dtype=tf.float32)
+
+    fw, bw = bi_state
+    fw_cell =fw[-1].c
+    fw_final_output = fw[-1].h
+    bw_cell=bw[-1].c
+    bw_final_output = bw[-1].h
+
 
     init_op = tf.global_variables_initializer()
 
@@ -257,7 +265,22 @@ def test_LSTM_layer1():
 
     def sigmoid(x):
         return 1/(1 + np.exp(-x))
-
+    
+    print("\n=== bi_state ===")
+    print(bi_state)
+    print("\n=== fw ===")
+    print(fw)
+    print("\n=== bw ===")
+    print(bw)
+    print("\n=== fw_cell ===")
+    print(fw_cell)
+    print("\n=== fw_final_output ===")
+    print(fw_final_output)
+    print("\n=== bw_cell ===")
+    print(bw_cell)
+    print("\n=== bw_final_output ===")
+    print(bw_final_output)
+    input()
     print("\n=== Trainable Variables ===")
     trainable_vars = sess.run(tf_global_variables)
     print(trainable_vars)
@@ -320,7 +343,7 @@ def test_LSTM_layer1():
                        np.multiply(gate1_h1[2:4], sigmoid(gate1_h1[0:2])))
 
     print("\n=== c1_layer1 (np.add(np.multiply(c1_layer1, sigmoid(np.add(gate1_h1[4:6], foget_bias))), np.multiply(gate1_h1[2:4], sigmoid(gate1_h1[0:2]))) ===\n{}".format(c1_layer1))
-
+  
     layer1_h1 = np.multiply(sigmoid(gate1_h1[6:8]), c1_layer1)
      
     print("\n=== layer1_h1 ===\n{}".format(layer1_h1)) 
@@ -390,8 +413,19 @@ def test_LSTM_layer1():
 
     print("\n=== bi state output ===\n{}".format(sess.run(bi_state)))
 
+    print("\n=== fw ===\n{}".format(sess.run(fw)))
 
+    print("\n=== bw ===\n{}".format(sess.run(bw)))
 
+    print("\n=== fw_cell(fw[-1].c]) in bi sate ===\n{}".format(sess.run(fw_cell)))
+     
+    print("\n=== fw_final_output(fw[-1].h in bi state ===\n{}".format(sess.run(fw_final_output)))
+
+    print("\n=== bw_cell(bw[-1].c) in bi state ===\n{}".format(sess.run(bw_cell)))
+
+    print("\n=== bw_final_output(bw[-1].h) in bi state ===\n{}".format(sess.run(bw_final_output)))
+
+    sess.close()
 
 def test_LSTM_layer2():
     forward_rnn_layers = [tf.nn.rnn_cell.BasicLSTMCell(size, activation=tf.keras.activations.linear, state_is_tuple=True, dtype=tf.float32) for size in [2,2]]
@@ -408,6 +442,11 @@ def test_LSTM_layer2():
                                                           inputs=x,
                                                           sequence_length=[2],
                                                           dtype=tf.float32)
+    fw, bw = bi_state
+    fw_cell = fw[-1].c
+    fw_final_output = fw[-1].h
+    bw_cell = bw[-1].c
+    bw_final_output = bw[-1].h
 
     init_op = tf.global_variables_initializer()
 
@@ -419,6 +458,22 @@ def test_LSTM_layer2():
 
     def sigmoid(x):
         return 1/(1 + np.exp(-x))
+
+    print("\n=== bi_state ===")
+    print(bi_state)
+    print("\n=== fw ===")
+    print(fw)
+    print("\n=== bw ===")
+    print(bw)
+    print("\n=== fw_cell ===")
+    print(fw_cell)
+    print("\n=== fw_final_output ===")
+    print(fw_final_output)
+    print("\n=== bw_cell ===")
+    print(bw_cell)
+    print("\n=== bw_final_output ===")
+    print(bw_final_output)
+    input()
 
     print("\n=== Trainable Variables ===")
     trainable_vars = sess.run(tf_global_variables)
@@ -629,6 +684,19 @@ def test_LSTM_layer2():
 
     print("\n=== bi state output ===\n{}".format(sess.run(bi_state)))
 
+    print("\n=== fw ===\n{}".format(sess.run(fw)))
+
+    print("\n=== bw ===\n{}".format(sess.run(bw)))
+
+    print("\n=== fw_cell(fw[-1].c) in bi sate ===\n{}".format(sess.run(fw_cell)))
+     
+    print("\n=== fw_final_output(fw[-1].h in bi state ===\n{}".format(sess.run(fw_final_output)))
+
+    print("\n=== bw_cell(bw[-1].c) in bi state ===\n{}".format(sess.run(bw_cell)))
+
+    print("\n=== bw_final_output(bw[-1].h) in bi state ===\n{}".format(sess.run(bw_final_output)))
+
+
     sess.close()
 
 
@@ -827,6 +895,6 @@ if __name__ == "__main__":
 
    #test_LSTM_layer1()
 
-   #test_LSTM_layer2()
+   test_LSTM_layer2()
    
-   test_GRU_layer1()
+   #test_GRU_layer1()
