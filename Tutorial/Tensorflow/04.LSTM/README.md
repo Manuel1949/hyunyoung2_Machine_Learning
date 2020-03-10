@@ -2,7 +2,7 @@
 
  This is for my study about Neural Network to deal with time series data, in particular text. 
  
- I will hadle the RNN and LSTM model here. 
+ I will handle the RNN and LSTM model here. 
 
  The following is help site for those model, in partilcular LSTM.
 
