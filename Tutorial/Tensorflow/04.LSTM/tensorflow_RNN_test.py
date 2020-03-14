@@ -14,11 +14,11 @@ def test_RNN_layer1():
 
     x = tf.constant([[[1,2],[3,4]]], dtype=tf.float32)
 
-    uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_multi_rnn_cell, inputs=x, sequence_length=[1], dtype=tf.float32)
+    uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_multi_rnn_cell, inputs=x, sequence_length=[2], dtype=tf.float32)
     bi_output, bi_state = tf.nn.bidirectional_dynamic_rnn(cell_fw = forward_multi_rnn_cell,
                                                           cell_bw = forward_multi_rnn_cell,#backward_multi_rnn_cell, 
                                                           inputs=x,
-                                                          sequence_length=[1],
+                                                          sequence_length=[2],
                                                           dtype=tf.float32)
 
     init_op = tf.global_variables_initializer()
@@ -112,7 +112,7 @@ def test_RNN_layer2():
 
     x = tf.constant([[[1,2],[3,4]]], dtype=tf.float32)
 
-    uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_multi_rnn_cell, sequenc_length=[1], inputs=x, dtype=tf.float32)
+    uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_multi_rnn_cell, sequenc_length=[2], inputs=x, dtype=tf.float32)
     bi_output, bi_state = tf.nn.bidirectional_dynamic_rnn(cell_fw = forward_multi_rnn_cell,
                                                           cell_bw = forward_multi_rnn_cell,#backward_multi_rnn_cell, 
                                                           inputs=x,
@@ -237,11 +237,11 @@ def test_RNN_layer1_no_multiRNNCell():
  
     x = tf.constant([[[1,2],[3,4]]], dtype=tf.float32)
 
-    uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_rnn_layers, inputs=x, sequence_length=[1], dtype=tf.float32)
+    uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_rnn_layers, inputs=x, sequence_length=[2], dtype=tf.float32)
     bi_output, bi_state = tf.nn.bidirectional_dynamic_rnn(cell_fw = forward_rnn_layers,
                                                           cell_bw = forward_rnn_layers, 
                                                           inputs=x,
-                                                          sequence_length=[1],
+                                                          sequence_length=[2],
                                                           dtype=tf.float32)
 
     init_op = tf.global_variables_initializer()
@@ -1728,7 +1728,7 @@ if __name__ == "__main__":
 
    #test_RNN_layer2()
 
-   #est_RNN_layer1_no_multiRNNCell()
+   test_RNN_layer1_no_multiRNNCell()
 
    #test_LSTM_layer1()
 
@@ -1740,4 +1740,4 @@ if __name__ == "__main__":
    
    #test_GRU_layer2()
 
-   test_GRU_layer1_no_MultiRNNCell()
+   #test_GRU_layer1_no_MultiRNNCell()
