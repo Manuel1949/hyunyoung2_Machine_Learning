@@ -785,7 +785,7 @@ def test_LSTM_layer2():
 
     print("\n=== fw_cell(fw[-1].c) in bi sate ===\n{}".format(sess.run(fw_cell)))
      
-    print("\n=== fw_final_output(fw[-1].h in bi state ===\n{}".format(sess.run(fw_final_output)))
+    print("\n=== fw_final_output(fw[-1].h) in bi state ===\n{}".format(sess.run(fw_final_output)))
 
     print("\n=== bw_cell(bw[-1].c) in bi state ===\n{}".format(sess.run(bw_cell)))
 
@@ -977,9 +977,9 @@ def test_LSTM_layer1_no_MultiRNNCell():
 
     print("\n=== bw ===\n{}".format(sess.run(bw)))
 
-    print("\n=== fw_cell(fw.c]) in bi sate ===\n{}".format(sess.run(fw_cell)))
+    print("\n=== fw_cell(fw.c) in bi sate ===\n{}".format(sess.run(fw_cell)))
      
-    print("\n=== fw_final_output(fw.h in bi state ===\n{}".format(sess.run(fw_final_output)))
+    print("\n=== fw_final_output(fw.h) in bi state ===\n{}".format(sess.run(fw_final_output)))
 
     print("\n=== bw_cell(bw.c) in bi state ===\n{}".format(sess.run(bw_cell)))
 
@@ -1728,7 +1728,7 @@ if __name__ == "__main__":
 
    #test_RNN_layer2()
 
-   test_RNN_layer1_no_multiRNNCell()
+   #test_RNN_layer1_no_multiRNNCell()
 
    #test_LSTM_layer1()
 
@@ -1736,7 +1736,7 @@ if __name__ == "__main__":
 
    #test_LSTM_layer1_no_MultiRNNCell()
 
-   #test_GRU_layer1()
+   test_GRU_layer1()
    
    #test_GRU_layer2()
 
