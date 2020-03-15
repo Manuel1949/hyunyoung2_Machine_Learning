@@ -13,6 +13,7 @@ def test_RNN_layer1():
     #backward_multi_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(backward_rnn_layers)
 
     x = tf.constant([[[1,2],[3,4]]], dtype=tf.float32)
+    #x = tf.constant([[[1,2],[3,4]],[[3,4],[1,2]]], dtype=tf.float32)
 
     uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_multi_rnn_cell, inputs=x, sequence_length=[2], dtype=tf.float32)
     bi_output, bi_state = tf.nn.bidirectional_dynamic_rnn(cell_fw = forward_multi_rnn_cell,
@@ -111,8 +112,9 @@ def test_RNN_layer2():
     #backward_multi_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(backward_rnn_layers)
 
     x = tf.constant([[[1,2],[3,4]]], dtype=tf.float32)
+    #x = tf.constant([[[1,2],[3,4]],[[3,4],[1,2]]], dtype=tf.float32)
 
-    uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_multi_rnn_cell, sequenc_length=[2], inputs=x, dtype=tf.float32)
+    uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_multi_rnn_cell, sequence_length=[2], inputs=x, dtype=tf.float32)
     bi_output, bi_state = tf.nn.bidirectional_dynamic_rnn(cell_fw = forward_multi_rnn_cell,
                                                           cell_bw = forward_multi_rnn_cell,#backward_multi_rnn_cell, 
                                                           inputs=x,
@@ -236,6 +238,7 @@ def test_RNN_layer1_no_multiRNNCell():
     #backward_rnn_layers = tf.nn.rnn_cell.BasicRNNCell(2, activation=tf.keras.activations.linear, dtype=tf.float32)
  
     x = tf.constant([[[1,2],[3,4]]], dtype=tf.float32)
+    #x = tf.constant([[[1,2],[3,4]],[[3,4],[1,2]]], dtype=tf.float32)
 
     uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_rnn_layers, inputs=x, sequence_length=[2], dtype=tf.float32)
     bi_output, bi_state = tf.nn.bidirectional_dynamic_rnn(cell_fw = forward_rnn_layers,
@@ -263,7 +266,7 @@ def test_RNN_layer1_no_multiRNNCell():
     ## RNN setting
     fw_rnn_w1, fw_rnn_b1 = trainable_vars 
 
-    print("\n=== RNN layer1 ===")
+    print("\n=== RNN layer1 no multiRNNCell ===")
     print("\n=== fw rnn weight1 ===")
     print(fw_rnn_w1)
    
@@ -335,6 +338,7 @@ def test_LSTM_layer1():
     #backward_multi_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(backward_rnn_layers)
 
     x = tf.constant([[[1,2],[3,4]]], dtype=tf.float32)
+    #x = tf.constant([[[1,2],[3,4]],[[3,4],[1,2]]], dtype=tf.float32)
 
     uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_multi_rnn_cell, sequence_length=[2], inputs=x, dtype=tf.float32)
     bi_output, bi_state = tf.nn.bidirectional_dynamic_rnn(cell_fw = forward_multi_rnn_cell,
@@ -384,7 +388,7 @@ def test_LSTM_layer1():
     for idx, val in enumerate(tf_global_variables):
        print("{}-{}: {}".format(idx, val.name, val))
 
-    print("\n=== RNN layer 2 ===")
+    print("\n=== LSTM layer 1 ===")
 
     ## LSTM setting
     fw_rnn_w1, fw_rnn_b1 = trainable_vars #fw_rnn_w2, fw_rnn_b2 = trainable_vars #, bw_rnn_w1,  bw_rnn_b1  bw_rnn_w2, bw_rnn_b2 = trainable_vars
@@ -530,8 +534,9 @@ def test_LSTM_layer2():
     #backward_multi_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(backward_rnn_layers)
 
     x = tf.constant([[[1,2],[3,4]]], dtype=tf.float32)
+    #x = tf.constant([[[1,2],[3,4]],[[3,4],[1,2]]], dtype=tf.float32)
 
-    uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_multi_rnn_cell, inputs=x, dtype=tf.float32)
+    uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_multi_rnn_cell, inputs=x, sequence_length=[2], dtype=tf.float32)
     bi_output, bi_state = tf.nn.bidirectional_dynamic_rnn(cell_fw = forward_multi_rnn_cell,
                                                           cell_bw = forward_multi_rnn_cell,#backward_multi_rnn_cell, 
                                                           inputs=x,
@@ -578,7 +583,7 @@ def test_LSTM_layer2():
     for idx, val in enumerate(tf_global_variables):
        print("{}-{}: {}".format(idx, val.name, val))
 
-    print("\n=== RNN layer 2 ===")
+    print("\n=== LSTM layer 2 ===")
 
     ## LSTM setting
     fw_rnn_w1, fw_rnn_b1, fw_rnn_w2, fw_rnn_b2 = trainable_vars #, bw_rnn_w1,  bw_rnn_b1  bw_rnn_w2, bw_rnn_b2 = trainable_vars
@@ -800,6 +805,7 @@ def test_LSTM_layer1_no_MultiRNNCell():
 
 
     x = tf.constant([[[1,2],[3,4]]], dtype=tf.float32)
+    #x = tf.constant([[[1,2],[3,4]],[[3,4],[1,2]]], dtype=tf.float32)
 
     uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_rnn_layers, sequence_length=[2], inputs=x, dtype=tf.float32)
     bi_output, bi_state = tf.nn.bidirectional_dynamic_rnn(cell_fw = forward_rnn_layers,
@@ -849,7 +855,7 @@ def test_LSTM_layer1_no_MultiRNNCell():
     for idx, val in enumerate(tf_global_variables):
        print("{}-{}: {}".format(idx, val.name, val))
 
-    print("\n=== RNN layer 2 ===")
+    print("\n=== LSTM layer 1 no multiRNNCell ===")
 
     ## LSTM setting
     fw_rnn_w1, fw_rnn_b1 = trainable_vars #fw_rnn_w2, fw_rnn_b2 = trainable_vars #, bw_rnn_w1,  bw_rnn_b1  bw_rnn_w2, bw_rnn_b2 = trainable_vars
@@ -996,6 +1002,7 @@ def test_GRU_layer1():
     #backward_multi_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(backward_rnn_layers)
 
     x = tf.constant([[[1,2],[3,4]]], dtype=tf.float32)
+    #x = tf.constant([[[1,2],[3,4]],[[3,4],[1,2]]], dtype=tf.float32)
 
     uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_multi_rnn_cell, sequence_length=[2], inputs=x, dtype=tf.float32)
     bi_output, bi_state = tf.nn.bidirectional_dynamic_rnn(cell_fw = forward_multi_rnn_cell,
@@ -1042,7 +1049,7 @@ def test_GRU_layer1():
     for idx, val in enumerate(tf_global_variables):
        print("{}-{}: {}".format(idx, val.name, val))
 
-    print("\n=== RNN layer 2 ===")
+    print("\n=== GRU layer 1 ===")
 
     ## LSTM setting
     gate_w1, gate_b1, candidate_w1, candidate_b1 = trainable_vars #fw_rnn_w2, fw_rnn_b2 = trainable_vars #, bw_rnn_w1,  bw_rnn_b1  bw_rnn_w2, bw_rnn_b2 = trainable_vars
@@ -1209,6 +1216,7 @@ def test_GRU_layer2():
     #backward_multi_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(backward_rnn_layers)
 
     x = tf.constant([[[1,2],[3,4]]], dtype=tf.float32)
+    #x = tf.constant([[[1,2],[3,4]],[[3,4],[1,2]]], dtype=tf.float32)
 
     uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_multi_rnn_cell, sequence_length=[2], inputs=x, dtype=tf.float32)
     bi_output, bi_state = tf.nn.bidirectional_dynamic_rnn(cell_fw = forward_multi_rnn_cell,
@@ -1260,7 +1268,7 @@ def test_GRU_layer2():
     for idx, val in enumerate(tf_global_variables):
        print("{}-{}: {}".format(idx, val.name, val))
 
-    print("\n=== RNN layer 2 ===")
+    print("\n=== GRU layer 2 ===")
 
     ## LSTM setting
     gate_w1, gate_b1, candidate_w1, candidate_b1, gate_w2, gate_b2, candidate_w2, candidate_b2  = trainable_vars #fw_rnn_w2, fw_rnn_b2 = trainable_vars #, bw_rnn_w1,  bw_rnn_b1  bw_rnn_w2, bw_rnn_b2 = trainable_vars
@@ -1522,8 +1530,9 @@ def test_GRU_layer1_no_MultiRNNCell():
 
 
     x = tf.constant([[[1,2],[3,4]]], dtype=tf.float32)
+    #x = tf.constant([[[1,2],[3,4]],[[3,4],[1,2]]], dtype=tf.float32)
 
-    uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_rnn_layers, sequence_length=[2], inputs=x, dtype=tf.float32)
+    uni_output, uni_state = tf.nn.dynamic_rnn(cell=forward_rnn_layers, inputs=x, sequence_length=[2], dtype=tf.float32)
     bi_output, bi_state = tf.nn.bidirectional_dynamic_rnn(cell_fw = forward_rnn_layers,
                                                           cell_bw = forward_rnn_layers, 
                                                           inputs=x,
@@ -1566,7 +1575,7 @@ def test_GRU_layer1_no_MultiRNNCell():
     for idx, val in enumerate(tf_global_variables):
        print("{}-{}: {}".format(idx, val.name, val))
 
-    print("\n=== RNN layer 2 ===")
+    print("\n=== GRU layer layer1 no MultiRNNCell ===")
 
     ## LSTM setting
     gate_w1, gate_b1, candidate_w1, candidate_b1 = trainable_vars #fw_rnn_w2, fw_rnn_b2 = trainable_vars #, bw_rnn_w1,  bw_rnn_b1  bw_rnn_w2, bw_rnn_b2 = trainable_vars
@@ -1716,9 +1725,6 @@ def test_GRU_layer1_no_MultiRNNCell():
     print(sess.run(bw[0]))
 
 
-
-
-
     sess.close()
 
 
@@ -1736,8 +1742,8 @@ if __name__ == "__main__":
 
    #test_LSTM_layer1_no_MultiRNNCell()
 
-   test_GRU_layer1()
+   #test_GRU_layer1()
    
    #test_GRU_layer2()
 
-   #test_GRU_layer1_no_MultiRNNCell()
+   test_GRU_layer1_no_MultiRNNCell()
